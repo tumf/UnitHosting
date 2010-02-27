@@ -1,4 +1,4 @@
 #!/bin/bash
 #symfony base
-yum install httpd
+yum install httpd -y
 
