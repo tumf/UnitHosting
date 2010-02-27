@@ -8,6 +8,6 @@ yum -y install httpd httpd-devel php php-pear php-devel git
 pear channel-discover pear.symfony-project.com
 pear install symfony/symfony-1.4.3
 
-mkdir -p /var/symfony-projects
+mkdir -p /var/www/symfony/projects
 
 
