@@ -51,7 +51,7 @@ cat > /etc/httpd/conf.d/virtualhosts.conf <<EOF
 NameVirtualHost *:80
 Include site.d/*.conf
 EOF
-
+mkdir -p /etc/httpd/site.d
 
 # /etc/php.d/my.ini にオレオレ設定を書く
 cat > /etc/php.d/my.ini <<EOF
