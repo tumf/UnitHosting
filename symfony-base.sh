@@ -12,6 +12,8 @@ rpm -ivh http://apt.sw.be/redhat/el5/en/i386/RPMS.dag/rpmforge-release-0.5.1-1.e
 yum -y install httpd httpd-devel php php-pear php-devel php-dom php-mbstring
 # yum install git
 yum -y git
+# yum install postfix
+yum install -y postfix
 # yum install mysql
 yum -y install mysql mysql-server php-mysql
 sed -i.orig -e "s/\[mysqld\]/\[mysqld\]\ndefault-character-set = utf8/" /etc/my.cnf
@@ -62,3 +64,12 @@ short_open_tag = Off
 mbstring.language = Japanese
 mbstring.internal_encoding = utf-8
 EOF
+
+/sbin/chkconfig httpd on
+/sbin/chkconfig mysqld on
+# /sbin/chkconfig postfix on
+
+/etc/init.d/httpd start
+/etc/init.d/mysqld start
+# /etc/init.d/postfix start
+
