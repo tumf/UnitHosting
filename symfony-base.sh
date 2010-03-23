@@ -11,7 +11,7 @@ rpm -ivh http://apt.sw.be/redhat/el5/en/i386/RPMS.dag/rpmforge-release-0.5.1-1.e
 # yum install httpd & php
 yum -y install httpd httpd-devel php php-pear php-devel php-dom php-mbstring
 # yum install git
-yum -y git
+yum -y install git
 # yum install postfix
 yum install -y postfix
 # yum install mysql
