@@ -21,6 +21,22 @@ mkdir -p /var/www/etc
 htpasswd -s -b -c /var/www/etc/htpasswd uhuser $password
 echo $password > /home/uhuser/openpne-password.txt
 
+# メールを送る
+cat | mail $OP_MAIL -s "Welcome to OpenPNE on UnitHosting" <<EOF
+Hi, $OP_USER. I'm $HOSTNAME.
+
+OpenPNE is now available.
+
+--------------------
+user: uhuser
+password: $password
+--------------------
+
+I placed the password at /home/uhuser/openpne-password.txt,too.
+EOF
+
+
+
 
 cat > /etc/httpd/site.d/openpne.conf <<EOF
 <VirtualHost *:80>
