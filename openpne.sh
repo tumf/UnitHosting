@@ -15,29 +15,11 @@ cp config/OpenPNE.yml.sample config/OpenPNE.yml
 sed -i.orig -e "s/example\.com/$HOSTNAME/g" config/OpenPNE.yml
 ./symfony openpne:install --dsn=mysql://root@localhost/openpne
 
-# uhuserのホームにパスワードファイルを置く
-password=`cat /dev/urandom |head|md5sum|cut -d ' ' -f 1`
-mkdir -p /var/www/etc
-htpasswd -s -b -c /var/www/etc/htpasswd uhuser $password
-echo $password > /home/uhuser/openpne-password.txt
-
-# メールを送る
-/etc/init.d/sendmail start
-cat | mail $OP_MAIL -s "Welcome to OpenPNE on UnitHosting" <<EOF
-Hi, $OP_USER. I'm $HOSTNAME.
-
-OpenPNE is now available.
-
---------------------
-user: uhuser
-password: $password
---------------------
-
-I placed the password at /home/uhuser/openpne-password.txt,too.
+# cronの設定
+cat | crontab <<EOF
+00 6 * * * root sh /var/www/sites/OpenPNE3/bin/send_daily_news.cron /var/www/sites/OpenPNE3 /usr/bin/php
+00 6 * * * root sh /var/www/sites/OpenPNE3/bin/birthday_mail.cron /var/www/sites/OpenPNE3 /usr/bin/php
 EOF
-
-
-
 
 cat > /etc/httpd/site.d/openpne.conf <<EOF
 <VirtualHost *:80>
@@ -63,12 +45,28 @@ cat > /etc/httpd/site.d/openpne.conf <<EOF
 </Directory>
 EOF
 
+# uhuserのホームにパスワードファイルを置く
+password=`cat /dev/urandom |head|md5sum|cut -d ' ' -f 1`
+mkdir -p /var/www/etc
+htpasswd -s -b -c /var/www/etc/htpasswd uhuser $password
+echo $password > /home/uhuser/openpne-password.txt
+
+# メールを送る
+/etc/init.d/sendmail start
+cat | mail $OP_MAIL -s "Welcome to OpenPNE on UnitHosting" <<EOF
+Hi, $OP_USER. I'm $HOSTNAME.
+
+OpenPNE is now available.
+
+--------------------
+user: uhuser
+password: $password
+--------------------
+
+I placed the password at /home/uhuser/openpne-password.txt,too.
+EOF
+
 /etc/init.d/httpd reload
 
-# cronの設定
-cat | crontab <<EOF
-00 6 * * * root sh /var/www/sites/OpenPNE3/bin/send_daily_news.cron /var/www/sites/OpenPNE3 /usr/bin/php
-00 6 * * * root sh /var/www/sites/OpenPNE3/bin/birthday_mail.cron /var/www/sites/OpenPNE3 /usr/bin/php
-EOF
 
 
