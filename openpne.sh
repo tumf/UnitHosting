@@ -22,6 +22,7 @@ htpasswd -s -b -c /var/www/etc/htpasswd uhuser $password
 echo $password > /home/uhuser/openpne-password.txt
 
 # メールを送る
+/etc/init.d/sendmail start
 cat | mail $OP_MAIL -s "Welcome to OpenPNE on UnitHosting" <<EOF
 Hi, $OP_USER. I'm $HOSTNAME.
 
