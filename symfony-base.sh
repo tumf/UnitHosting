@@ -49,14 +49,14 @@ mkdir -p /var/www/sites
 chown uhuser /var/www/sites
 
 # virtual host の設定
-cat > /etc/httpd/conf.d/virtualhosts.conf <<EOF
+cat <<EOF  > /etc/httpd/conf.d/virtualhosts.conf
 NameVirtualHost *:80
 Include site.d/*.conf
 EOF
 mkdir -p /etc/httpd/site.d
 
 # /etc/php.d/my.ini にオレオレ設定を書く
-cat > /etc/php.d/my.ini <<EOF
+cat <<EOF > /etc/php.d/my.ini
 memory_limit = 640M
 short_open_tag = Off
 

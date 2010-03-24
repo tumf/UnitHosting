@@ -16,12 +16,12 @@ sed -i.orig -e "s/example\.com/$HOSTNAME/g" config/OpenPNE.yml
 ./symfony openpne:install --dsn=mysql://root@localhost/openpne
 
 # cronの設定
-cat | crontab <<EOF
+cat <<EOF | crontab
 00 6 * * * root sh /var/www/sites/OpenPNE3/bin/send_daily_news.cron /var/www/sites/OpenPNE3 /usr/bin/php
 00 6 * * * root sh /var/www/sites/OpenPNE3/bin/birthday_mail.cron /var/www/sites/OpenPNE3 /usr/bin/php
 EOF
 
-cat > /etc/httpd/site.d/openpne.conf <<EOF
+cat <<EOF > /etc/httpd/site.d/openpne.conf
 <VirtualHost *:80>
     ServerName $HOSTNAME
     ServerAdmin info@$HOSTNAME
@@ -53,7 +53,7 @@ echo $password > /home/uhuser/openpne-password.txt
 
 # メールを送る
 /etc/init.d/sendmail start
-cat | mail $OP_MAIL -s "Welcome to OpenPNE on UnitHosting" <<EOF
+cat <<EOF | mail $OP_MAIL -s "Welcome to OpenPNE on UnitHosting"
 Hi, $OP_USER. I'm $HOSTNAME.
 
 OpenPNE is now available.
