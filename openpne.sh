@@ -1,6 +1,11 @@
 #!/bin/bash
-#symfony base
-curl http://github.com/tumf/UnitHosting/raw/master/symfony-base.sh|bash
+if [ -z $script_url ];then
+    export script_url="http://github.com/tumf/UnitHosting/raw/master"
+fi
+curl $script_url/symfony-base.sh|bash
+
+# yum install git
+yum -y install git
 
 # OpnePNEだと対話型インストールなんで
 # 勝手にforkしたバージョン使います。ごめんなさい><
