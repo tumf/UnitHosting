@@ -11,4 +11,4 @@ default-character-set = utf8
 EOF
 
 /sbin/chkconfig mysqld on
-
+/etc/init.d/mysqld start
