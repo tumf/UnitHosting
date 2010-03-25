@@ -38,11 +38,8 @@ pear channel-discover pear.symfony-project.com
 pear install symfony/symfony
 
 # install APC
-# "extension=apc.so"
-# pecl-extend_memory_limit install apc
-# 上記のコマンドでは対話的にyesを求められるので止まってしまう yum の -y みたいなオプションが欲しい。
-# expectで書くか...
-# yum -y install expect
+yes yes|pecl install apc
+echo "extension=apc.so" > /etc/php.d/apc.ini
 
 # deploy先のディレクトリを作成
 mkdir -p /var/www/sites
