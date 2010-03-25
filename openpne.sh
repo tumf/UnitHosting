@@ -29,7 +29,7 @@ EOF
 cat <<EOF > /etc/httpd/site.d/openpne.conf
 <VirtualHost *:80>
     ServerName $HOSTNAME
-    ServerAdmin info@$HOSTNAME
+    ServerAdmin root@$HOSTNAME
     DirectoryIndex index.php
     DocumentRoot /var/www/sites/OpenPNE3/web
 
