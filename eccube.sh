@@ -6,14 +6,29 @@ fi
 curl $script_url/symfony-base.sh|bash
 
 mysqladmin -uroot create eccube_db
+mysql -uroot eccube_db <<EOF
+GRANT ALL PRIVILEGES ON eccube_db.* TO eccube_db_user@localhost IDENTIFIED BY 'eccube';
+FLUSH PRIVILEGES;
+EOF
 
 cat <<EOF > /etc/httpd/site.d/eccube.conf
 <VirtualHost *:80>
 ServerName $HOSTNAME
 ServerAdmin root@$HOSTNAME
-DocumentRoot /var/www/sites/eccube-2.4.3
+DocumentRoot /var/www/sites/eccube-2.4.3/html
 DirectoryIndex index.html index.php
 </VirtualHost>
+<Directory "/var/www/sites/eccube-2.4.3/html">
+    AllowOverride All
+    Options +FollowSymLinks
+    
+    AuthUserFile /var/www/etc/htpasswd
+    AuthGroupFile /dev/null
+    AuthType Basic
+    AuthName "Please Enter Your Password"
+    Require valid-user
+</Directory>
+
 EOF
 
 cd /var/www/sites/
@@ -44,12 +59,12 @@ user: uhuser
 password: $password
 
 database: eccube_db
-dbuser: root
-dbpass: (none)
+dbuser: eccube_db_user
+dbpass: eccube
 dbhost: localhost
 --------------------
 
 I placed the password at /home/uhuser/eccube-password.txt,too.
 EOF
 
-/etc/init.d/httpd reload
+
