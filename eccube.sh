@@ -22,7 +22,7 @@ tar xvzf eccube-2.4.3.tar.gz
 chmod 777 eccube-2.4.3/html/install/temp
 
 # uhuserのホームにパスワードファイルを置く
-password=`cat /dev/urandom |head|md5sum|cut -d ' ' -f 1`
+password=`cat /dev/urandom |head|md5sum|head -c 8`
 mkdir -p /var/www/etc
 htpasswd -s -b -c /var/www/etc/htpasswd uhuser $password
 echo $password > /home/uhuser/eccube-password.txt
@@ -35,6 +35,11 @@ Hi, $OP_USER. I'm $HOSTNAME.
 Your EC-CUBE is now available.
 
 --------------------
+IE
+http://uhuser@$GLOBAL_IP/install/
+Others
+http://uhuser:$password@$GLOBAL_IP/install/
+
 user: uhuser
 password: $password
 

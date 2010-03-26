@@ -51,7 +51,7 @@ cat <<EOF > /etc/httpd/site.d/openpne.conf
 EOF
 
 # uhuserのホームにパスワードファイルを置く
-password=`cat /dev/urandom |head|md5sum|cut -d ' ' -f 1`
+password=`cat /dev/urandom |head|md5sum|head -c 8`
 mkdir -p /var/www/etc
 htpasswd -s -b -c /var/www/etc/htpasswd uhuser $password
 echo $password > /home/uhuser/openpne-password.txt
@@ -66,6 +66,12 @@ OpenPNE is now available.
 --------------------
 user: uhuser
 password: $password
+
+IE:
+http://uhuser@$GLOBAL_IP/
+others:
+http://uhuser:$password@$GLOBAL_IP/
+ 
 --------------------
 
 I placed the password at /home/uhuser/openpne-password.txt,too.
