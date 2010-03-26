@@ -9,4 +9,3 @@ rpm -ivh http://apt.sw.be/redhat/el5/en/i386/RPMS.dag/rpmforge-release-0.5.1-1.e
 # yum install postfix
 # yum install -y postfix
 
-export GLOBAL_IP=`curl http://www.unit-hosting.com/ip.php`

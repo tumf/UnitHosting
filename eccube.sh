@@ -36,6 +36,8 @@ wget http://downloads.ec-cube.net/src/eccube-2.4.3.tar.gz
 tar xvzf eccube-2.4.3.tar.gz 
 chmod 777 eccube-2.4.3/html/install/temp
 
+# global ipの取得
+export GLOBAL_IP=`curl http://www.unit-hosting.com/ip.php`
 # uhuserのホームにパスワードファイルを置く
 password=`cat /dev/urandom |head|md5sum|head -c 8`
 mkdir -p /var/www/etc

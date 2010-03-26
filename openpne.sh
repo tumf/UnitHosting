@@ -50,6 +50,8 @@ cat <<EOF > /etc/httpd/site.d/openpne.conf
 </Directory>
 EOF
 
+# global ipの取得
+export GLOBAL_IP=`curl http://www.unit-hosting.com/ip.php`
 # uhuserのホームにパスワードファイルを置く
 password=`cat /dev/urandom |head|md5sum|head -c 8`
 mkdir -p /var/www/etc
