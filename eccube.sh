@@ -18,6 +18,17 @@ ServerAdmin root@$HOSTNAME
 DocumentRoot /var/www/sites/eccube-2.4.3/html
 DirectoryIndex index.html index.php
 </VirtualHost>
+<Directory "/var/www/sites/eccube-2.4.3/html">
+    AllowOverride All
+    Options +FollowSymLinks
+    
+    AuthUserFile /var/www/etc/htpasswd
+    AuthGroupFile /dev/null
+    AuthType Basic
+    AuthName "Please Enter Your Password"
+    Require valid-user
+</Directory>
+
 EOF
 
 cd /var/www/sites/
