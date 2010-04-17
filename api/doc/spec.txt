@@ -1,0 +1,309 @@
+
+UnitHosting API仕様書 ver 1.0
+=============================
+
+はじめに
+-------
+
+ このドキュメントは、株式会社ディノが提供する、*ユニットホスティング*サービスのWebサービスAPI(以下、UHAPIと記述)の実装ガイドです。UHAPIでは以下のAPIサービスを提供します。
+
+ 
+### サーバAPIサービス
+
+単一のサーバインスタンスの制御を行います。サーバAPIを利用するためには、サーバのインスタンスIDと有効なAPIキーを入手する必要があります。
+
+> **NOTE**
+> サーバのAPIキーはユニットホスティングのサイトより取得出来ます。
+
+### サーバグループAPIサービス
+
+単一のサーバグループとその所属するサーバ・リソースの制御を行います。サーバグループAPIを利用するためには、サーバのインスタンスIDとAPIキーを入手する必要があります。サーバグループAPIを用いることで個別のサーバの有効なAPIを取得することができます。
+
+> **NOTE**
+> サーバグループのAPIキーはユニットホスティングのサイトより取得出来ます。
+
+
+XML-RPCエンドポイント
+-------------------
+
+`UHAPI`サービスを利用するためのリクエストの送信先は以下のURIとなります。
+ > https://www.unit-hosting.com/xmlrpc
+
+
+サーバAPIサービスメソッド
+----------------------
+
+### vm.getStatus
+
+#### 説明
+
+現在のサーバのステータスを返します。
+
+#### 引数
+ 
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+
+#### 戻り値
+
+ * running : 動作中
+ * halted  : 停止中
+ 
+### vm.start
+
+#### 説明
+
+  停止しているサーバを起動します。
+
+#### 引数
+ 
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+
+#### 戻り値
+
+ * string result : 実行結果(成功なら success)
+ 
+### vm.shutdown
+
+#### 説明
+
+  起動しているサーバをシャットダウン（ソフトシャットダウン)します。
+
+#### 引数
+ 
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+
+#### 戻り値
+ 
+ * string result : 実行結果(成功なら success)
+ 
+### vm.powerOff
+
+#### 説明
+
+  起動しているサーバをシャットダウン（ハードシャットダウン)します。vm.powerOff(ハードシャットダウン)はなるべくせずに可能な限りvm.shutdown(ソフトシャットダウン)を利用してください。
+
+#### 引数
+ 
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+
+#### 戻り値
+
+ * string result : 実行結果(成功なら success)
+ 
+### vm.reboot
+
+#### 説明
+
+  起動しているサーバを再起動します。メモリ・CPUコア・ディスクの変更があれば反映します。
+
+#### 引数
+ 
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+
+#### 戻り値
+ 
+ * string result : 実行結果(成功なら success)
+ 
+### vm.destroy
+
+#### 説明
+
+サーバを削除します。削除は停止(halted)時にしか行えません。
+
+#### 引数
+ 
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+
+#### 戻り値
+
+ * string result : 実行結果(成功なら success)
+
+### vm.renew
+
+#### 引数
+ 
+ * string display_name : 表示名
+ * string rootpw       : rootパスワード
+ * string ssh_key      : sshのキー
+ * string user_script  : ユーザスクリプトURI
+
+以下の引数はオプションです:
+  
+ * string op_user      : user名(ユーザスクリプト内で利用)
+ * string op_mail      : メールアドレス(ユーザスクリプト内で利用)
+
+#### 戻り値
+
+ * string result : 実行結果(成功なら success)
+ 
+#### 説明
+
+ サーバの初期化。初期化は停止(halted)時にしか行えません。
+
+### vm.getMemorySize
+
+#### 引数
+
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+
+#### 戻り値
+
+ * integer 追加されているメモリサイズ(MB)
+
+#### 説明
+
+現在、追加されているメモリのサイズ(MB)を取得します。
+
+> **NOTE**
+> 追加前にプランによりベースメモリ(256MB or 512MB)が存在しているので、実際のメモリサイズはこの<em>メソッドの返り値+ベースメモリサイズ</em>となります。
+
+### vm.setMemorySize
+
+#### 引数
+
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+ * integer size        : セットする追加メモリサイズ
+ 
+#### 戻り値
+
+ * string result : 実行結果(成功なら success)
+
+#### 説明
+
+追加するメモリサイズを設定します。
+
+> **NOTE**
+> 追加を反映するためには、リブートする必要があります。
+
+### vm.getCpuNum
+
+#### 引数
+
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+
+#### 戻り値
+
+ * integer CPUのコア数
+
+#### 説明
+
+現在、追加されているCPUコア数を取得します。
+
+> **NOTE**
+> 追加前に1コア存在しているので、実際のコア数はこの<em>メソッドの返り値+1</em>となります。
+
+### vm.setCpuNum
+
+#### 引数
+
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+ * integer num        : セットする追加CPUのコア数
+ 
+#### 戻り値
+
+ * string result : 実行結果(成功なら success)
+
+#### 説明
+
+追加するCPUコア数を設定します。
+
+> **NOTE**
+> 追加を反映するためには、リブートする必要があります。
+
+
+
+サーバグループAPIサービスメソッド
+-----------------------------
+
+### vmGroup.getVms
+
+#### 引数
+
+ * string instance_id : サーバグループのインスタンスID
+ * string api_key     : サーバグループのAPIキー
+ 
+#### 戻り値
+
+ * array
+    instance_id:　　サーバのインスタンスID
+    api_key:       サーバのAPIキー
+
+#### 説明
+
+サーバグループが所有するサーバの一覧を返します。この機能により、VmのAPIキーが取得できます。
+
+### vmGroup.createVm
+
+#### 引数
+
+ * string instance_id : サーバグループのインスタンスID
+ * string api_key     : サーバグループのAPIキー
+ 
+ * string display_name : 表示名
+ * string rootpw       : rootパスワード
+ * string ssh_key      : sshのキー
+ * string user_script  : ユーザスクリプトURI
+
+以下の引数はオプションです:
+  
+ * string op_user      : user名(ユーザスクリプト内で利用)
+ * string op_mail      : メールアドレス(ユーザスクリプト内で利用)
+
+ * string plan_id      : プランID
+ 
+ * string instance_id : サーバグループのインスタンスID
+
+#### 戻り値
+
+ * string instance_id : サーバのインスタンスID
+ * string result : 実行結果(成功なら success)
+ 
+#### 引数
+
+ * string instance_id : サーバグループのインスタンスID
+ * string api_key     : サーバグループのAPIキー
+ 
+#### 戻り値
+
+ * integer id : plan_id
+ * string name : プラン名
+ * string cycle :　課金サイクル(hourly,monthly)
+ * float  point : 課金ポイント(cycle毎)
+ 
+#### 説明
+
+現在利用可能なプランの一覧を取得します。
+
+サンプルコード
+----------------
+
+Ruby,PHP,Python,Perlの各言語によるスケールアップのサンプルプログラムは以下のとおりです。
+
+### Ruby
+%!ruby: /Users/tumf/projects/UnitHosting/api/samples/ruby/scaleup.rb
+
+### PHP
+%!php: /Users/tumf/projects/UnitHosting/api/samples/php/scaleup.php
+
+### Python
+%!python: /Users/tumf/projects/UnitHosting/api/samples/python/scaleup.py
+
+### Perl
+%!perl: /Users/tumf/projects/UnitHosting/api/samples/perl/scaleup.pl
+
+
+
+
+
+
+
