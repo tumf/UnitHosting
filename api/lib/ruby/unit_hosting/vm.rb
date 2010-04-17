@@ -4,14 +4,8 @@ require 'unit_hosting/base.rb'
 
 module UnitHosting
   class Vm < Base
-    def load_key(file)
-      File::open(file) do |f|
-        xml = f.read
-        doc = REXML::Document.new(xml)
-        @instance_id = doc.elements['/server/instance_id'].text
-        @api_key = doc.elements['/server/key'].text
-      end
-    end
+    @instance_id_elm = '/server/instance_id'
+    @api_key_elm = '/server/key'
     def reboot
       server_call("vm.reboot")
     end
