@@ -4,8 +4,11 @@ require 'unit_hosting/base.rb'
 
 module UnitHosting
   class Vm < Base
-    @instance_id_elm = '/server/instance_id'
-    @api_key_elm = '/server/key'
+    def initialize(instance_id=nil,api_key=nil)
+      @instance_id_elm = '/server/instance_id'
+      @api_key_elm = '/server/key'
+      super
+    end
     def reboot
       server_call("vm.reboot")
     end
