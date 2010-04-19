@@ -1,5 +1,5 @@
 
-UnitHosting API仕様書 ver 1.0
+UnitHosting API仕様書 ver 1.1
 =============================
 
 はじめに
@@ -146,6 +146,24 @@ XML-RPCエンドポイント
 
  サーバの初期化。初期化は停止(halted)時にしか行えません。
 
+### vm.getIpInfo
+
+#### 引数
+
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+ 
+#### 戻り値
+
+ * array
+    * ip:            IP
+    * route_to:      グローバルIP(静的NATがある場合)
+
+#### 説明
+
+ サーバに割り当てられているIPドレスについての情報を返します。
+ 
+
 ### vm.getMemorySize
 
 #### 引数
@@ -284,6 +302,8 @@ XML-RPCエンドポイント
 
 現在利用可能なプランの一覧を取得します。
 
+
+
 サンプルコード
 ----------------
 
@@ -302,6 +322,12 @@ Ruby,PHP,Python,Perlの各言語によるスケールアップのサンプルプ
 %!perl: /Users/tumf/projects/UnitHosting/api/samples/perl/scaleup.pl
 
 
+変更履歴
+-------
+
+ * 1.0 APIマニュアル初版公開
+ * 1.1 `vm.getIpInfo`の追加
+ 
 
 
 
