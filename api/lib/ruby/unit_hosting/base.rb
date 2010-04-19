@@ -8,12 +8,19 @@ require 'optparse'
 require 'rexml/document'
 
 module UnitHosting
+  def keypath instance_id
+    "%s/.UnitHosting/keys/%s.key" % [ENV['HOME'], instance_id]
+  end
+  module_function :keypath
   class Base
     def initialize(instance_id=nil,api_key=nil)
       @instance_id = instance_id
       @api_key = api_key
       @server = XMLRPC::Client.
         new_from_uri("https://www.unit-hosting.com/xmlrpc")
+    end
+    def load(instance_id)
+      load_key(UnitHosting::keypath(instance_id))
     end
     def load_key(file)
       File::open(file) do |f|
@@ -22,6 +29,7 @@ module UnitHosting
         @instance_id = doc.elements[@instance_id_elm].text
         @api_key = doc.elements[@api_key_elm].text
       end
+      self
     end
     def server_call(method,param = {})
       param["instance_id"] = @instance_id

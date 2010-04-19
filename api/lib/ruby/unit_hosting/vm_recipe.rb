@@ -6,6 +6,7 @@ module UnitHosting
     attr_accessor :rootpw,:ssh_key,:plan_id
     attr_accessor :op_user,:op_mail,:user_script,:display_name
     def initialize
+      @op_user = ENV['USER']
     end
     def load_ssh_key file
       File::open(file) do |f|

@@ -20,7 +20,7 @@ module UnitHosting
     end
     # instance_idに紐づくvmを返す
     def vm(instance_id)
-      Vm.new(instance_id,vm_api_key?(instance_id))
+      Vm.new(instance_id,vm_api_key(instance_id))
     end
     # vmの作成
     def create_vm(recipe)
@@ -29,7 +29,7 @@ module UnitHosting
       r
     end
     # サーバグループはVMのAPIキーを有効にできる
-    def vm_api_key?(vm_id)
+    def vm_api_key(vm_id)
       server_call("vmGroup.getVms").each do |vm|
         return vm["api_key"] if vm["instance_id"] == vm_id
       end
@@ -39,9 +39,5 @@ module UnitHosting
 end
 
 if $0 == __FILE__
-  g = UnitHosting::VmGroup.new
-  g.load_key("/Users/tumf/.UnitHosting/keys/tumf-sg-10.key")
-  pp g.vm('tumf-vm-107')
-  # pp g.vms
-  
+  pp  UnitHosting::VmGroup.new.load('tumf-sg-10').vm('tumf-vm-107')
 end
