@@ -1,5 +1,5 @@
 
-UnitHosting API仕様書 ver 1.1
+UnitHosting API仕様書 ver 1.2
 =============================
 
 はじめに
@@ -164,7 +164,7 @@ XML-RPCエンドポイント
  サーバに割り当てられているIPドレスについての情報を返します。
  
 
-### vm.getMemorySize
+### vm.getMemoryUnitSize
 
 #### 引数
 
@@ -182,7 +182,7 @@ XML-RPCエンドポイント
 > **NOTE**
 > 追加前にプランによりベースメモリ(256MB or 512MB)が存在しているので、実際のメモリサイズはこの<em>メソッドの返り値+ベースメモリサイズ</em>となります。
 
-### vm.setMemorySize
+### vm.setMemoryUnitSize
 
 #### 引数
 
@@ -201,7 +201,7 @@ XML-RPCエンドポイント
 > **NOTE**
 > 追加を反映するためには、リブートする必要があります。
 
-### vm.getCpuNum
+### vm.getCpuUnitNum
 
 #### 引数
 
@@ -219,7 +219,7 @@ XML-RPCエンドポイント
 > **NOTE**
 > 追加前に1コア存在しているので、実際のコア数はこの<em>メソッドの返り値+1</em>となります。
 
-### vm.setCpuNum
+### vm.setCpuUnitNum
 
 #### 引数
 
@@ -237,6 +237,23 @@ XML-RPCエンドポイント
 
 > **NOTE**
 > 追加を反映するためには、リブートする必要があります。
+
+### vm.replicate
+
+#### 引数
+
+ * string instance_id : サーバのインスタンスID
+ * string api_key     : サーバのAPIキー
+ * string display_name : 表示名
+ 
+#### 戻り値
+
+ * string instance_id : サーバのインスタンスID
+ * string result : 実行結果(成功なら success)
+
+#### 説明
+
+サーバの複製を行います。
 
 
 
