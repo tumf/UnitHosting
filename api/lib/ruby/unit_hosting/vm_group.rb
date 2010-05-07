@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 # vim:set fileencoding=utf-8:
-require 'unit_hosting/vm.rb'
-require 'unit_hosting/vm_recipe.rb'
+require 'unit_hosting'
 
 module UnitHosting
   class VmGroup < Base
@@ -18,6 +17,11 @@ module UnitHosting
       end
       objs
     end
+    def vm_api_key instance_id
+      server_call("vmGroup.getVms").each do |vm|
+        return vm["api_key"] if vm[instance_id] == instance_id
+      end
+    end
     # instance_idに紐づくvmを返す
     def vm(instance_id)
       Vm.new(instance_id,vm_api_key(instance_id))
@@ -28,16 +32,14 @@ module UnitHosting
       return false if r["result"] != "success"
       r
     end
-    # サーバグループはVMのAPIキーを有効にできる
-    def vm_api_key(vm_id)
-      server_call("vmGroup.getVms").each do |vm|
-        return vm["api_key"] if vm["instance_id"] == vm_id
-      end
-      nil
-    end
   end
 end
 
 if $0 == __FILE__
-  pp  UnitHosting::VmGroup.new.load('tumf-sg-10').vm('tumf-vm-107')
+  pp  UnitHosting::VmGroup.load('tumf-sg-10').vm('tumf-vm-107')
+  exit
+  recipe = UnitHosting::VmRecipe.new
+  # recipe.
 end
+
+

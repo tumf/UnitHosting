@@ -13,11 +13,18 @@ module UnitHosting
   end
   module_function :keypath
   class Base
+    attr_reader :instance_id;
     def initialize(instance_id=nil,api_key=nil)
       @instance_id = instance_id
       @api_key = api_key
       @server = XMLRPC::Client.
         new_from_uri("https://www.unit-hosting.com/xmlrpc")
+      @server.instance_variable_get(:@http).
+        instance_variable_get(:@ssl_context).
+        instance_variable_set(:@verify_mode, OpenSSL::SSL::VERIFY_NONE)
+    end
+    def self.load(instance_id)
+      self.new.load(instance_id)
     end
     def load(instance_id)
       load_key(UnitHosting::keypath(instance_id))

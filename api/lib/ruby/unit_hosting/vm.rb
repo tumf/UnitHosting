@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # vim:set fileencoding=utf-8:
-require 'unit_hosting/base.rb'
+require 'unit_hosting'
 
 module UnitHosting
   class Vm < Base
@@ -39,15 +39,27 @@ module UnitHosting
     def cpu_unit_num?
       server_call("vm.getCpuUnitNum")
     end
+    def ipInfo?
+      server_call("vm.getIpInfo")
+    end
+    def display_name
+      server_call("vm.getDisplayName")
+    end
+    def display_name= name
+      server_call("vm.setDisplayName",{"display_name" => name})
+    end
+    def replicate name=""
+      server_call("vm.replicate",{"display_name" => name})
+    end
   end
 end
 
 
 if $0 == __FILE__
-  vm = UnitHosting::Vm.new
-  vm.load_key("/Users/tumf/Downloads/tumf-vm-91.key")
+  vm = UnitHosting::Vm.load("tumf-vm-105")
   pp vm.status?
-  vm.reboot
+  pp vm.ipInfo?
+#  vm.reboot
 end
 
 
