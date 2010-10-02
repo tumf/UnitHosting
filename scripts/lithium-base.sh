@@ -2,7 +2,7 @@
 wget http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-4.noarch.rpm
 wget http://rpms.famillecollet.com/enterprise/remi-release-5.rpm
 rpm -Uvh remi-release-5.rpm epel-release-5-4.noarch.rpm
-yum --enablerepo=remi install php
+yum -y --enablerepo=remi install php
 pecl install mongo
 /etc/init.d/httpd start
 
