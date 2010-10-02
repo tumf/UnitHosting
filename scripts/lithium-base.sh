@@ -2,8 +2,9 @@
 wget http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-4.noarch.rpm
 wget http://rpms.famillecollet.com/enterprise/remi-release-5.rpm
 rpm -Uvh remi-release-5.rpm epel-release-5-4.noarch.rpm
-yum -y --enablerepo=remi install php
+yum -y --enablerepo=remi install php php-pear php-devel httpd-devel
 pecl install mongo
+echo "extension=mongo.so" > /etc/php.d/mongo.ini
 /etc/init.d/httpd start
 
 # mongo db
