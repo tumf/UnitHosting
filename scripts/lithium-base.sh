@@ -5,7 +5,7 @@ rpm -Uvh remi-release-5.rpm epel-release-5-4.noarch.rpm
 yum -y --enablerepo=remi install php php-pear php-devel httpd-devel
 pecl install mongo
 echo "extension=mongo.so" > /etc/php.d/mongo.ini
-/etc/init.d/httpd start
+# /etc/init.d/httpd start
 
 # mongo db
 cd /usr/local/src
