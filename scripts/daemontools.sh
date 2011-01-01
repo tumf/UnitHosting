@@ -8,9 +8,10 @@ wget http://cr.yp.to/daemontools/daemontools-0.76.tar.gz
 tar xvzf daemontools-0.76.tar.gz
 cd admin/daemontools-0.76/
 patch -p 1 <<EOF
+patch -p 1 <<EOF
 diff -ur daemontools-0.76.old/src/error.h daemontools-0.76/src/error.h
---- daemontools-0.76.old/src/error.h	2001-07-12 11:49:49.000000000 -0500
-+++ daemontools-0.76/src/error.h	2003-01-09 21:52:01.000000000 -0600
+--- daemontools-0.76.old/src/error.h
++++ daemontools-0.76/src/error.h
 @@ -3,7 +3,7 @@
  #ifndef ERROR_H
  #define ERROR_H
