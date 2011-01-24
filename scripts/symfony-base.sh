@@ -4,9 +4,9 @@ if [ -z $script_url ];then
 fi
 
 #symfony base
-curl $script_url/common.sh|bash
-curl $script_url/mysql.sh|bash
-curl $script_url/apache-php.sh|bash
+curl -L $script_url/common.sh|bash
+curl -L $script_url/mysql.sh|bash
+curl -L $script_url/apache-php.sh|bash
 
 
 # install symfony

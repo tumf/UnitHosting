@@ -2,7 +2,7 @@
 if [ -z $script_url ];then
     export script_url="http://github.com/tumf/UnitHosting/raw/master/scripts"
 fi
-curl $script_url/symfony-base.sh|bash
+curl -L $script_url/symfony-base.sh|bash
 
 # yum install git
 yum -y install git
@@ -51,7 +51,7 @@ cat <<EOF > /etc/httpd/site.d/openpne.conf
 EOF
 
 # global ipの取得
-export GLOBAL_IP=`curl http://www.unit-hosting.com/ip.php`
+export GLOBAL_IP=`curl -L http://www.unit-hosting.com/ip.php`
 # uhuserのホームにパスワードファイルを置く
 password=`cat /dev/urandom |head|md5sum|head -c 8`
 mkdir -p /var/www/etc
