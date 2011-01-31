@@ -3,7 +3,7 @@ cat <<EOF > /etc/yum.repos.d/ruby.repo
 [ruby]
 name=ruby
 enabled=1
-baseurl=http://centos.karan.org/el$releasever/ruby187/$basearch/
+baseurl=http://centos.karan.org/el\$releasever/ruby187/\$basearch/
 gpgcheck=1
 gpgkey=http://centos.karan.org/RPM-GPG-KEY-karan.org.txt
 EOF
