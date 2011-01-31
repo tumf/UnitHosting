@@ -1,5 +1,5 @@
 #!/bin/bash
-cat <<EOF > /etc/yum.repo.d/ruby.repo
+cat <<EOF > /etc/yum.repos.d/ruby.repo
 [ruby]
 name=ruby
 enabled=1
