@@ -17,5 +17,5 @@ EOF
 
 yum install --enablerepo=kbs-CentOS-Testing -y ruby ruby-irb ruby-libs ruby-rdoc
 yum install --enablerepo=kbs-CentOS-Extras -y rubygems
-sudo gem update --system
+# sudo gem update --system
 
