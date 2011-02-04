@@ -1,6 +1,6 @@
 #!/bin/bash
 # yum install httpd & php
-yum -y install httpd httpd-devel php php-pear php-devel php-dom php-mbstring php-mysql php-gd
+yum -y install httpd httpd-devel php php-pear php-devel php-dom php-mbstring php-mysql php-gd pcre pcre-devel
 # install APC
 yes yes|pecl install apc
 echo "extension=apc.so" > /etc/php.d/apc.ini
