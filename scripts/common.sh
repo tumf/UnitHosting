@@ -11,3 +11,5 @@ rpm -ivh rpmforge-release-0.5.1-1.el5.rf.x86_64.rpm
 # yum install postfix
 # yum install -y postfix
 
+rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
+
