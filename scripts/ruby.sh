@@ -15,7 +15,7 @@ enabled=0
 baseurl=http://centos.karan.org/el\$releasever/misc/testing/\$basearch/RPMS/
 EOF
 
-yum install --enablerepo=kbs-CentOS-Testing -y ruby ruby-irb ruby-libs ruby-rdoc
+yum install --enablerepo=kbs-CentOS-Testing -y ruby ruby-irb ruby-libs ruby-rdoc ruby-devel
 yum install --enablerepo=kbs-CentOS-Extras -y rubygems
 # sudo gem update --system
 
