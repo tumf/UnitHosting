@@ -10,7 +10,7 @@ yum -y install git
 # OpnePNEだと対話型インストールなんで
 # 勝手にforkしたバージョン使います。ごめんなさい><
 cd /var/www/sites
-git clone git://github.com/tumf/UnitHosting.git
+git clone git://github.com/tumf/OpenPNE3.git
 cd OpenPNE3
 git checkout OpenPNE-3.4.2
 git pull origin provision
