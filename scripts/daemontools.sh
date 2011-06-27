@@ -1,5 +1,5 @@
 #!/bin/sh
-yum -y install gcc
+yum -y install gcc make
 
 mkdir -p /package
 chmod 1755 /package
