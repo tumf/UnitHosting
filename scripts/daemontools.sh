@@ -8,7 +8,6 @@ wget http://cr.yp.to/daemontools/daemontools-0.76.tar.gz
 tar xvzf daemontools-0.76.tar.gz
 cd admin/daemontools-0.76/
 patch -p 1 <<EOF
-patch -p 1 <<EOF
 diff -ur daemontools-0.76.old/src/error.h daemontools-0.76/src/error.h
 --- daemontools-0.76.old/src/error.h
 +++ daemontools-0.76/src/error.h
