@@ -18,4 +18,13 @@ sudo /usr/sbin/adduser nginx -d /var/lib/nginx -s /sbin/nologin
     --http-scgi-temp-path=/var/lib/nginx/tmp/scgi_temp 
 make
 make install
+
+mkdir /var/lib/nginx/tmp
+
+cat > /var/lib/nginx/run <<EOF
+#!/bin/sh
+PATH=/command:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
+exec /var/lib/nginx/sbin/nginx -g 'daemon off;' 2>&1
+EOF
+chmod +x /var/lib/nginx/run
     
